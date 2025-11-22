@@ -1,0 +1,49 @@
+#include <iostream>
+#include <cmath>
+#include <iomanip>
+
+using namespace std;
+
+double calculateSeries(double x, double epsilon) {
+    double sum = 0.0;
+    double term = 0.0;
+    double power_of_3 = 1.0 / 3.0; 
+    
+    int i = 1;
+    
+    do {
+        term = (x + cos(i * x)) * power_of_3;
+        sum += term;
+        power_of_3 /= 3.0;
+        
+        i++;
+        
+    } while (fabs(term) >= epsilon && i < 10000); 
+    
+    return sum;
+}
+
+int main() {
+    double x, epsilon;
+    
+    cout << "Вычисление суммы ряда: sum(i=1 to ∞) (x + cos(i*x)) / 3^i" << endl;
+    cout << "Введите значение x: ";
+    cin >> x;
+    
+    cout << "Введите точность epsilon: ";
+    cin >> epsilon;
+    
+    if (epsilon <= 0) {
+        cout << "Ошибка: точность должна быть положительным числом!" << endl;
+        return 1;
+    }
+    
+    double result = calculateSeries(x, epsilon);
+    
+    cout << fixed << setprecision(10);
+    cout << "\nРезультат: " << result << endl;
+    cout << "\nДополнительная информация:" << endl;
+    cout << "Теоретическое значение (при малых x): " << (x/2.0 + (cos(x) - 0.5)/(3.0 - 2.0*cos(x))) << endl;
+    
+    return 0;
+}
