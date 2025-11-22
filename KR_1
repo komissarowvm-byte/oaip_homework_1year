@@ -1,0 +1,43 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+double nestedSqrtIterative(int n) {
+    if (n <= 0) return 0;
+    
+    double result = sqrt(2);
+    for (int i = 2; i <= n; i++) {
+        result = sqrt(2 + result);
+    }
+    return result;
+}
+double nestedSqrtRecursive(int n) {
+    if (n == 1) return sqrt(2);
+    return sqrt(2 + nestedSqrtRecursive(n - 1));
+}
+
+int main() {
+    int n;
+    
+    cout << "Введите натуральное число n: ";
+    cin >> n;
+    
+    if (n <= 0) {
+        cout << "Число должно быть натуральным (n > 0)" << endl;
+        return 1;
+    }
+    
+    double result = nestedSqrtIterative(n);
+    cout << "Итеративный метод: " << endl;
+    cout << "Результат для n = " << n << ": " << result << endl;
+    double resultRecursive = nestedSqrtRecursive(n);
+    cout << "Рекурсивный метод: " << endl;
+    cout << "Результат для n = " << n << ": " << resultRecursive << endl;
+    cout << "\nПоследовательность значений:" << endl;
+    for (int i = 1; i <= n; i++) {
+        double val = nestedSqrtIterative(i);
+        cout << "a_" << i << " = " << val << endl;
+    }
+    
+    return 0;
+}
