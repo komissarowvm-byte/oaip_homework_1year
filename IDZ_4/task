@@ -1,1 +1,26 @@
+#include <iostream>
+#include <cmath>
 
+using namespace std;
+
+int main() {
+    double eps;
+    cout << "Введите точность epsilon (0 < eps < 1): ";
+    cin >> eps;
+
+    double sum = 0.0;
+    int k = 1;
+
+    while (fabs(sum - 0.25) >= eps) {
+        double term = 1.0 / (k * (k + 1) * (k + 2));
+        sum += term;
+        k++;
+    }
+
+    cout << "Количество слагаемых: " << k - 1 << endl;
+    cout << "Приближённая сумма: " << sum << endl;
+    cout << "Точное значение: 0.25" << endl;
+    cout << "Абсолютная погрешность: " << fabs(sum - 0.25) << endl;
+
+    return 0;
+}
