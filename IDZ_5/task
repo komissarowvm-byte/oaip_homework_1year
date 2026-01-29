@@ -1,1 +1,37 @@
+#include <iostream>
+using namespace std;
 
+int main() {
+    int M, N;
+    cout << "Введите M и N (2 <= M,N <= 10): ";
+    cin >> M >> N;
+
+    int matrix[10][10];
+    cout << "Введите элементы матрицы по строкам:\n";
+    for (int i = 0; i < M; i++) {
+        for (int j = 0; j < N; j++) {
+            cin >> matrix[i][j];
+        }
+    }
+
+    int minInCol[10];
+    for (int j = 0; j < N; j++) {
+        minInCol[j] = matrix[0][j];
+        for (int i = 1; i < M; i++) {
+            if (matrix[i][j] < minInCol[j]) {
+                minInCol[j] = matrix[i][j];
+            }
+        }
+    }
+
+    int result = minInCol[0];
+    for (int j = 1; j < N; j++) {
+        if (minInCol[j] > result) {
+            result = minInCol[j];
+        }
+    }
+
+    cout << "Максимум из минимальных элементов столбцов: " << result << endl;
+
+    return 0;
+}
