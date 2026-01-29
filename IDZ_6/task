@@ -1,1 +1,78 @@
+#include <iostream>
+#include <vector>
+using namespace std;
 
+int scalarProduct(int a, int b, int c) {
+    return a * a - b * c;
+}
+
+
+int findMin(int arr[], int n) {
+    int min_val = arr[0];
+    for (int i = 1; i < n; i++) {
+        if (arr[i] < min_val) {
+            min_val = arr[i];
+        }
+    }
+    return min_val;
+}
+
+int findMax(int arr[], int n) {
+    int max_val = arr[0];
+    for (int i = 1; i < n; i++) {
+        if (arr[i] > max_val) {
+            max_val = arr[i];
+        }
+    }
+    return max_val;
+}
+
+int main() {
+    vector<int> x(30);
+    vector<int> y(30);
+    vector<int> z(30);
+
+   for (int i = 0; i < 30; i++) {
+        x[i] = i + 1;      
+        y[i] = i + 31;     
+        z[i] = i + 61;     
+    }
+
+    int min_x = x[0], min_y = y[0], min_z = z[0];
+    for (int i = 1; i < 30; i++) {
+        if (x[i] < min_x) min_x = x[i];
+        if (y[i] < min_y) min_y = y[i];
+        if (z[i] < min_z) min_z = z[i];
+    }
+
+    int a, b, c;
+    if (min_x <= min_y && min_x <= min_z) {
+        a = min_x; b = min_y; c = min_z;
+    } else if (min_y <= min_x && min_y <= min_z) {
+        a = min_y; b = min_x; c = min_z;
+    } else {
+        a = min_z; b = min_x; c = min_y;
+    }
+
+    int p = a * a;
+    int q = b * c;
+    int scalar = scalarProduct(a, b, c);
+    int nums[7] = {a, a, b, c, p, q, scalar};
+    int min_val = findMin(nums, 7);
+    int max_val = findMax(nums, 7);
+    int sum = 0;
+    for (int i = 0; i < 7; i++) {
+        sum += nums[i];
+    }
+    int avg = sum / 7;
+
+    cout << "Минимальные элементы в векторах: x=" << min_x 
+         << ", y=" << min_y << ", z=" << min_z << endl;
+    cout << "a = " << a << ", b = " << b << ", c = " << c << endl;
+    cout << "Скалярное произведение = " << scalar << endl;
+    cout << "Минимум среди чисел: " << min_val << endl;
+    cout << "Максимум среди чисел: " << max_val << endl;
+    cout << "Среднее (целое): " << avg << endl;
+
+    return 0;
+}
